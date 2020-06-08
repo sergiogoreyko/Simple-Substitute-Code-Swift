@@ -8,11 +8,11 @@
 
 import Foundation
 
-let alph = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
-var new_alph: [String] = []
-var copy: [String] = []
+let alph: [Character] = ["A","B","C","D","E","F","G","H","I","J","K","L","M","N","O","P","Q","R","S","T","U","V","W","X","Y","Z"]
+var new_alph: [Character] = []
 
-func getIndexForEncrypt(symbol: String) -> Int {
+
+func getIndexForEncrypt(symbol: Character) -> Int {
     
     for j in 0..<alph.count {
         if (alph[j] == symbol) {
@@ -23,7 +23,7 @@ func getIndexForEncrypt(symbol: String) -> Int {
     return 0
 }
 
-func getIndexForDecrypt(symbol: String) -> Int {
+func getIndexForDecrypt(symbol: Character) -> Int {
     
     for j in 0..<new_alph.count {
         if (new_alph[j] == symbol) {
@@ -37,12 +37,7 @@ func getIndexForDecrypt(symbol: String) -> Int {
 func newAlph() {
     
     print("Введите ключ:")
-    let key = String(readLine()!).uppercased()
-    
-    for item in key {
-        new_alph.append(String(item))
-    }
-    
+    new_alph = Array(String(readLine()!).uppercased())
     print("----------------------------------------------------------------------------------------------------------------------------------")
 }
 
@@ -54,25 +49,18 @@ func encrypt() {
     print("----------------------------------------------------------------------------------------------------------------------------------")
     print("Введите сообщение:")
     
-    let message = String(readLine()!).uppercased()
+    var message = Array(String(readLine()!).uppercased())
     print("----------------------")
-    
-    for value in message {
-        copy.append(String(value))
-    }
     
     for i in 0..<message.count {
-        if (copy[i] == " " || copy[i] == "." || copy[i] == "," || copy[i] == "!" || copy[i] == "?") { continue }
-        let x = getIndexForEncrypt(symbol: copy[i])
-        copy[i] = new_alph[x]
+        if (message[i] == " " || message[i] == "." || message[i] == "," || message[i] == "!" || message[i] == "?") { continue }
+        let x = getIndexForEncrypt(symbol: message[i])
+        message[i] = new_alph[x]
     }
     
-    let text = copy.joined()
     print("Результат:")
-    print(text)
+    print(String(message))
     print("----------------------")
-    copy = []
-    new_alph = []
 }
 
 func decrypt() {
@@ -83,25 +71,18 @@ func decrypt() {
     print("----------------------------------------------------------------------------------------------------------------------------------")
     print("Введите сообщение:")
     
-    let message = String(readLine()!).uppercased()
+    var message = Array(String(readLine()!).uppercased())
     print("----------------------")
-
-    for value in message {
-        copy.append(String(value))
-    }
     
     for i in 0..<message.count {
-        if (copy[i] == " " || copy[i] == "." || copy[i] == "," || copy[i] == "!" || copy[i] == "?") {continue}
-        let x = getIndexForDecrypt(symbol: copy[i])
-        copy[i] = alph[x]
+        if (message[i] == " " || message[i] == "." || message[i] == "," || message[i] == "!" || message[i] == "?") { continue }
+        let x = getIndexForDecrypt(symbol: message[i])
+        message[i] = alph[x]
     }
     
-    let text = copy.joined()
     print("Результат:")
-    print(text)
+    print(String(message))
     print("----------------------")
-    copy = []
-    new_alph = []
 }
 
 
@@ -110,7 +91,7 @@ func decrypt() {
 print("Выберите команду:\n1. Зашифровать\n2. Расшифровать")
 print("-----------------------")
 
-var i = Int(readLine()!)!
+let i = Int(readLine()!)!
 
 switch i {
     case 1:
